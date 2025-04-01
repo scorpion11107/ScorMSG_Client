@@ -1,0 +1,16 @@
+<RCC>
+  <qresource prefix="General">
+    <file>App_Icon.png</file>
+    <file>Warning.png</file>
+    <file>Save.png</file>
+    <file>Account.png</file>
+    <file>Login.png</file>
+    <file>Logout.png</file>
+    <file>Register.png</file>
+    <file>Settings.png</file>
+    <file>Hide_Password.png</file>
+    <file>Show_Password.png</file>
+    <file>Cancel.png</file>
+    <file>Check.png</file>
+  </qresource>
+</RCC>

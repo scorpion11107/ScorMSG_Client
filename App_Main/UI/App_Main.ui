@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>mw_Main</class>
+ <widget class="QMainWindow" name="mw_Main">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1227</width>
+    <height>688</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ScorMSG</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../Icons/Icons.qrc">
+    <normaloff>:/General/App_Icon.png</normaloff>:/General/App_Icon.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1227</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="mn_File">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="ma_Close"/>
+   </widget>
+   <widget class="QMenu" name="mn_Account">
+    <property name="title">
+     <string>Account</string>
+    </property>
+    <addaction name="ma_Info"/>
+    <addaction name="ma_Settings"/>
+    <addaction name="separator"/>
+    <addaction name="ma_Logout"/>
+   </widget>
+   <addaction name="mn_File"/>
+   <addaction name="mn_Account"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="ma_Close">
+   <property name="icon">
+    <iconset resource="../../Icons/Icons.qrc">
+     <normaloff>:/General/Cancel.png</normaloff>:/General/Cancel.png</iconset>
+   </property>
+   <property name="text">
+    <string>Close</string>
+   </property>
+  </action>
+  <action name="ma_Login">
+   <property name="icon">
+    <iconset resource="../../Icons/Icons.qrc">
+     <normaloff>:/General/Login.png</normaloff>:/General/Login.png</iconset>
+   </property>
+   <property name="text">
+    <string>Login</string>
+   </property>
+  </action>
+  <action name="ma_Register">
+   <property name="icon">
+    <iconset resource="../../Icons/Icons.qrc">
+     <normaloff>:/General/Register.png</normaloff>:/General/Register.png</iconset>
+   </property>
+   <property name="text">
+    <string>Register</string>
+   </property>
+  </action>
+  <action name="ma_Info">
+   <property name="icon">
+    <iconset resource="../../Icons/Icons.qrc">
+     <normaloff>:/General/Account.png</normaloff>:/General/Account.png</iconset>
+   </property>
+   <property name="text">
+    <string>Info</string>
+   </property>
+  </action>
+  <action name="ma_Settings">
+   <property name="icon">
+    <iconset resource="../../Icons/Icons.qrc">
+     <normaloff>:/General/Settings.png</normaloff>:/General/Settings.png</iconset>
+   </property>
+   <property name="text">
+    <string>Settings</string>
+   </property>
+  </action>
+  <action name="ma_Logout">
+   <property name="icon">
+    <iconset resource="../../Icons/Icons.qrc">
+     <normaloff>:/General/Logout.png</normaloff>:/General/Logout.png</iconset>
+   </property>
+   <property name="text">
+    <string>Logout</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../../Icons/Icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>
