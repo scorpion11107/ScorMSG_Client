@@ -37,13 +37,13 @@ class AppSettings (qtw.QWidget, Ui_w_Settings):
             self.lb_ServerPort.setDisabled(False)
 
     @qtc.Slot()
-    def cancel(self):
-        self.settings_close.emit()
-
-    @qtc.Slot()
     def save(self):
-        core.save({"key": "server_address", "value": self.le_ServerAddress.text()})
-        core.save({"key": "server_port", "value": self.le_ServerPort.text()})
-        core.save({"key": "dev_settings", "value": self.cb_DevServer.isChecked()})
+        core.save("server_address", self.le_ServerAddress.text())
+        core.save("server_port", self.le_ServerPort.text())
+        core.save("dev_settings", self.cb_DevServer.isChecked())
 
         self.settings_save.emit()
+
+    @qtc.Slot()
+    def cancel(self):
+        self.settings_close.emit()

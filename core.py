@@ -83,7 +83,7 @@ def get_cert_path():
 def login(username, password):
     """Logs the user in, and saves relevent data"""
 
-    if not get("connected"):
+    if not get("connected") or get("expiration") < get_time():
         res = conn.login(get_server_address(), get_cert_path(), username, password)
         if res["status"] == "success":
             save("username", username)
@@ -135,11 +135,14 @@ def account_info():
         if expiration > get_time():
             res = conn.get_user_info(get_server_address(), get_cert_path(), token)
             if res["status"] == "success":
-                return True, res["message"]
+                return True, res["data"]
             elif res["status"] == "error":
                 return False, res["message"]
         else:
-            login(get("username"), get("password"))
-            return account_info()
+            res = login(get("username"), get("password"))
+            if res[0]:
+                return account_info()
+            else:
+                return False, res[1]
     else:
         return False, "No account connected"

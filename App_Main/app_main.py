@@ -62,9 +62,17 @@ class AppMain (qtw.QMainWindow, Ui_mw_Main):
             self.info_widget = AppInfo()
             self.info_widget.info_close.connect(self.info_close)
 
-            self.setCentralWidget(self.info_widget)
+            res = self.info_widget.update_data()
+            if res[0]:
+                self.setCentralWidget(self.info_widget)
+            else:
+                self.status(res[1])
         else:
             self.status("No account logged in")
+
+    @qtc.Slot()
+    def info_close(self):
+        self.show_home()
 
     @qtc.Slot()
     def show_settings(self):
@@ -95,10 +103,6 @@ class AppMain (qtw.QMainWindow, Ui_mw_Main):
 
     @qtc.Slot()
     def settings_cancel(self):
-        self.show_home()
-
-    @qtc.Slot()
-    def info_close(self):
         self.show_home()
 
     def show_home(self):
