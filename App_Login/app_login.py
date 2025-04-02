@@ -23,6 +23,7 @@ class AppLogin (qtw.QDialog, Ui_dl_Login):
         self.pb_ShowPassword.clicked.connect(self.show_password)
         self.pb_Cancel.clicked.connect(self.cancel)
         self.pb_Confirm.clicked.connect(self.confirm)
+        self.pb_Register.clicked.connect(self.register)
 
         self.le_UserID.setText(core.get("username"))
 
@@ -47,7 +48,7 @@ class AppLogin (qtw.QDialog, Ui_dl_Login):
             res = core.login(username, password)
             if res[0]:
                 self.login_success.emit()
-                self.close()
+                self.accept()
             else:
                 self.lb_Message.setText(res[1])
 
@@ -59,4 +60,3 @@ class AppLogin (qtw.QDialog, Ui_dl_Login):
     @qtc.Slot()
     def register(self):
         self.show_register.emit()
-        self.close()

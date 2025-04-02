@@ -7,13 +7,9 @@ import core
 from App_Main.UI.App_Main import Ui_mw_Main
 
 class AppMain (qtw.QMainWindow, Ui_mw_Main):
-
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-
-        import atexit
-        atexit.register(self.exit)
 
         self.home_widget = qtw.QWidget()
         self.settings_widget = qtw.QWidget()
@@ -36,39 +32,27 @@ class AppMain (qtw.QMainWindow, Ui_mw_Main):
         from App_Login.app_login import AppLogin
 
         self.login_form = AppLogin()
-        self.login_form.login_success.connect(self.login_success)
-        self.login_form.login_cancel.connect(self.login_cancel)
+        self.login_form.login_success.connect(self.launch)
+        self.login_form.login_cancel.connect(self.close)
         self.login_form.show_register.connect(self.show_register)
-        self.login_form.rejected.connect(self.login_cancel)
+        self.login_form.rejected.connect(self.close)
+
+        self.register_form.accept()
 
         self.login_form.show()
-
-    @qtc.Slot()
-    def login_success(self):
-        self.launch()
-
-    @qtc.Slot()
-    def login_cancel(self):
-        if not self.register_form:
-            self.exit()
 
     def show_register(self):
-        from App_Login.app_login import AppLogin
+        from App_Register.app_register import AppRegister
 
-        self.login_form = AppLogin()
-        self.login_form.login_success.connect(self.login_success)
-        self.login_form.login_cancel.connect(self.login_cancel)
-        self.login_form.rejected.connect(self.login_cancel)
+        self.register_form = AppRegister()
+        self.register_form.register_success.connect(self.show_login)
+        self.register_form.register_cancel.connect(self.close)
+        self.register_form.show_login.connect(self.show_login)
+        self.register_form.rejected.connect(self.close)
 
-        self.login_form.show()
+        self.login_form.accept()
 
-    @qtc.Slot()
-    def login_success(self):
-        self.launch()
-
-    @qtc.Slot()
-    def login_cancel(self):
-        self.exit()
+        self.register_form.show()
 
     @qtc.Slot()
     def show_info(self):
@@ -98,7 +82,7 @@ class AppMain (qtw.QMainWindow, Ui_mw_Main):
             res = core.logout()
 
             if res[0]:
-                self.exit()
+                self.close()
             else:
                 self.status(res[1])
         else:
@@ -129,7 +113,3 @@ class AppMain (qtw.QMainWindow, Ui_mw_Main):
 
     def status(self, text):
         self.statusbar.showMessage(text, 3000)
-
-    def exit(self):
-        qtw.QApplication.quit()
-        self.close()

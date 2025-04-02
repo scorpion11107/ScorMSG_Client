@@ -8,7 +8,9 @@ from App_Register.UI.App_Register import Ui_dl_Register
 
 class AppRegister (qtw.QDialog, Ui_dl_Register):
 
-    register_successful = qtc.Signal(str)
+    register_success = qtc.Signal()
+    register_cancel = qtc.Signal()
+    show_login = qtc.Signal()
 
     def __init__(self):
         super().__init__()
@@ -21,6 +23,7 @@ class AppRegister (qtw.QDialog, Ui_dl_Register):
         self.pb_ShowPassword.clicked.connect(self.show_password)
         self.pb_Cancel.clicked.connect(self.close)
         self.pb_Confirm.clicked.connect(self.register)
+        self.pb_Login.clicked.connect(self.login)
 
         self.show()
 
@@ -37,8 +40,9 @@ class AppRegister (qtw.QDialog, Ui_dl_Register):
             self.pb_ShowPassword.setIcon(qtg.QIcon(":/General/Show_Password.png"))
             self.password_hidden = True
 
+    @qtc.Slot()
     def register(self):
-        import connector as conn
+        import core
 
         userid = self.le_UserID.text()
         password = self.le_Password.text()
@@ -49,9 +53,13 @@ class AppRegister (qtw.QDialog, Ui_dl_Register):
         elif password != confirm_password:
             self.lb_Message.setText("Passwords do not match")
         else:
-            res = conn.register(userid, password)
-            if res.get("status") == "success":
-                self.register_successful.emit(userid)
+            res = core.register(userid, password)
+            if res[0]:
+                self.register_success.emit()
                 self.close()
-            elif res.get("status") == "error":
-                self.lb_Message.setText(res.get("message"))
+            else:
+                self.lb_Message.setText(res[1])
+
+    @qtc.Slot()
+    def login(self):
+        self.show_login.emit()
