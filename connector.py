@@ -37,6 +37,6 @@ def register(server_address, cert_path, username, password):
 
 def get_user_info(server_address, cert_path, token):
     headers = {"Authorization": f"Bearer:{token}"}
-    res = get(server_address, "/me", cert_path, headers = headers)
+    res = get(server_address, "/account", cert_path, headers = headers)
 
     return res

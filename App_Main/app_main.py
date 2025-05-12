@@ -23,7 +23,7 @@ class AppMain (qtw.QMainWindow, Ui_mw_Main):
         self.ma_Settings.triggered.connect(self.show_settings)
         self.ma_Logout.triggered.connect(self.logout)
 
-        if not core.get("connected"):
+        if not core.check_connection():
             self.show_login()
         else:
             self.launch()

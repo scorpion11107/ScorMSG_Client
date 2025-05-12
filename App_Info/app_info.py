@@ -15,8 +15,7 @@ class AppInfo (qtw.QWidget, Ui_w_AccountInfo):
         self.setupUi(self)
 
     def update_data(self):
-        res = core.account_info()
-        print(res)
+        res = core.get_user_info()
         if res[0]:
             data = res[1]
         else:

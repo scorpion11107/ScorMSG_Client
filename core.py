@@ -1,4 +1,6 @@
 from json import loads, dumps
+from random import expovariate
+
 import connector as conn
 
 def open_file(mode, data_in = None):
@@ -80,10 +82,15 @@ def get_cert_path():
     else:
         return "cert.pem"
 
-def login(username, password):
-    """Logs the user in, and saves relevent data"""
+def check_connection():
+    if get("connected") and get("expiration") > get_time():
+        return True
+    return False
 
-    if not get("connected") or get("expiration") < get_time():
+def login(username, password):
+    """Logs the user in, and saves relevant data"""
+
+    if not check_connection():
         res = conn.login(get_server_address(), get_cert_path(), username, password)
         if res["status"] == "success":
             save("username", username)
@@ -125,11 +132,11 @@ def register(username, password):
     elif res["status"] == "error":
         return False, res["message"]
 
-def account_info():
+def get_user_info():
     """Gets the information related to the
     logged in account"""
 
-    if get("connected"):
+    if check_connection():
         token = get("token")
         expiration = get("expiration")
         if expiration > get_time():
@@ -141,7 +148,7 @@ def account_info():
         else:
             res = login(get("username"), get("password"))
             if res[0]:
-                return account_info()
+                return get_user_info()
             else:
                 return False, res[1]
     else:
